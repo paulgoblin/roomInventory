@@ -34,10 +34,9 @@
 
 .itemTitle {
   display: inline-block;
-  width:calc(100% - 100px);
+  width:calc(100% - 150px);
 }
 .dropdown {
   width: 100px;
   display: inline-block;
-
 }
