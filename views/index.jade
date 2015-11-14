@@ -3,6 +3,7 @@ html(lang="en")
   head
     title= title
     link(href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet")
+    link(href="bower_components/sweetalert/dist/sweetalert.css", rel='stylesheet')
     link(href="css/style.css" rel="stylesheet")
   body
     .container
@@ -13,20 +14,20 @@ html(lang="en")
         if rooms[0]
           each room in rooms
             .room(data-mongoid= room._id.toString())
-              h3= room.name
+              h3.roomTitle= room.name
               if room.items[0]
                 each item in room.items
                   .item(data-mongoid= item._id.toString())
-                    h4= item.name
+                    h4.itemTitle= item.name
                     li.list-item= "description: " + item.description
                     li.list-item= "price: $" + item.value
       .jumbotron
         h2 Loose Items
-        .looseItems
+        .room
           if items[0]
             each item in items
               .item(data-mongoid= item._id.toString())
-                h4= item.name
+                h4.itemTitle= item.name
                 li.list-item= "description: " + item.description
                 li.list-item= "price: $" + item.value
 

@@ -66,9 +66,15 @@ router.put('/:id', function(req,res){
 router.post('/', function(req,res){
   console.log('shit worked')
   console.log(req.body)
-  Room.create(req.body, function(err){
-    res.status(err ? 400 : 200).send(err || 'room saved');
+  Room.create(req.body, function(err, room){
+    res.status(err ? 400 : 200).send(err || room);
   });
 })
 
 module.exports = router;
+
+
+
+
+
+

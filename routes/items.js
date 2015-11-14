@@ -32,9 +32,9 @@ router.put('/:id', function(req,res){
 });
 
 router.post('/', function(req,res){
-  console.log(req.body)
-  Item.create(req.body, function(err){
-    res.status(err ? 400 : 200).send(err || 'item saved');
+  Item.create(req.body, function(err,item){
+    console.log(item)
+    res.status(err ? 400 : 200).send(err || item);
   });
   // Item.addItem(req.body, function(err){
   //   res.satus(err ? 400 : 200).send(err || 'item saved');

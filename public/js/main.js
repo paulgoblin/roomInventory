@@ -3,9 +3,21 @@
 $(document).ready(init);
 
 function init() {
-  $('.jumbotron.rooms').on('click','.room', editRoom);
   $('.addItem').click(addItem);
   $('.addRoom').click(addRoom);
+  $('.jumbotron').on('click','.roomTitle',editRoom);
+  $('.jumbotron').on('click','.itemTitle',editItem);
+
+}
+
+function editItem(e){
+  let itemId = $(e.target).closest('.item').data('mongoid')
+  console.log("item id: ", itemId)
+}
+
+function editRoom(e){
+  let roomId = $(e.target).closest('.room').data('mongoid')
+  console.log("room id: ", roomId)
 }
 
 function addRoom() {
@@ -22,23 +34,20 @@ function addRoom() {
   $.post('/rooms', room)
   .done(function(data){
     console.log(data)
-  //drawitem
+    
   })
   .fail(function(err){
     console.error(err);
     swal({
       title: "Error Posting!",
-      text: "check console logs",
+      text: "You should probably fill in the whole form",
       type: "error",
-      confirmButtonText: "Cool"
+      confirmButtonText: "Ok"
     });
   });
 
 }
 
-function editRoom(e){
-  let roomId = $(e.target).closest('.room').data('mongoid')
-}
 
 function addItem(e){
   let $form = $(e.target).closest('.itemForm');
@@ -48,6 +57,13 @@ function addItem(e){
   item.name = $form.find('.itemName').val();
   item.value = $form.find('.itemValue').val();
   item.description = $form.find('.itemDescrip').val();
+
+  if (!item.name.match(/\w/)) {
+    console.log("give it a name!")
+    return;
+  }
+
+  item.value.replace(/\$/g,'')
 
   //post to db
   $.post('/items', item)
@@ -59,9 +75,9 @@ function addItem(e){
     console.error(err);
     swal({
       title: "Error Posting!",
-      text: "check console logs",
+      text: "You should probably fill in the whole form",
       type: "error",
-      confirmButtonText: "Cool"
+      confirmButtonText: "Ok"
     });
   });
 
