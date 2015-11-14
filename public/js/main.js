@@ -5,7 +5,7 @@ $(document).ready(init);
 function init() {
   $('.addItem').click(addItem);
   $('.addRoom').click(addRoom);
-  $('.jumbotron').on('click','.roomTitle',showEditRoom);
+  // $('.jumbotron').on('click','.roomTitle',showEditRoom);
   $('.jumbotron').on('click','.itemTitle',showEditItem);
   $('.jumbotron').on('click','.editItem',updateItem);
   $('.jumbotron').on('click','.roomSelect',changeRooms);
