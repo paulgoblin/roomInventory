@@ -26,7 +26,7 @@ html(lang="en")
                       ul.dropdown-menu(aria-labelledby='dropdownMenu1')
                         if rooms[0]
                           each room in rooms
-                            li
+                            li.roomSelect
                               a(href='#!' data-mongoid= room._id.toString())= room.name
                     li.list-item= "description: " + item.description
                     li.list-item= "price: $" + item.value
@@ -52,7 +52,7 @@ html(lang="en")
                   button.btn.editRoom Save Edit
       .jumbotron
         h2 Loose Items
-        .room
+        .room(data-mongoid= 0)
           if items[0]
             each item in items
               .item(data-mongoid= item._id.toString())
@@ -64,7 +64,7 @@ html(lang="en")
                   ul.dropdown-menu(aria-labelledby='dropdownMenu1')
                     if rooms[0]
                       each room in rooms
-                        li
+                        li.roomSelect
                           a(href='#!' data-mongoid= room._id.toString())= room.name
                 li.list-item= "description: " + item.description
                 li.list-item= "price: $" + item.value

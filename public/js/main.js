@@ -8,6 +8,35 @@ function init() {
   $('.jumbotron').on('click','.roomTitle',showEditRoom);
   $('.jumbotron').on('click','.itemTitle',showEditItem);
   $('.jumbotron').on('click','.editItem',updateItem);
+  $('.jumbotron').on('click','.roomSelect',changeRooms);
+}
+
+function changeRooms(e){
+  console.log(e.target);
+  let curRoomId = $(e.target).closest(".room").data("mongoid")
+  let newRoomId = $(e.target).data("mongoid")
+  let itemId = $(e.target).closest(".item").data("mongoid")
+  console.log(curRoomId, newRoomId, itemId)
+  console.log(`/${newRoomId}/addItem/${itemId}`)
+
+  // add Item to room 
+  $.ajax({
+    url:`/rooms/${newRoomId}/addItem/${itemId}`,
+    method: "PUT"
+  }).done(function(data){
+    console.log(data)
+    //drawitem 
+  }).fail(function(err){
+    console.error(err);
+    swal({
+      title: "Error Changing Rooms!",
+      text: "Refresh and try again",
+      type: "error",
+      confirmButtonText: "Ok"
+    });
+  });
+
+
 }
 
 function clearForm($form){
@@ -58,12 +87,14 @@ function showEditRoom(e){
 
 }
 
-function addRoom() {
+function addRoom(e) {
   let name = $('.roomName').val();
   if (!name.match(/\w/)) {
     console.log("give it a name!")
     return;
   }
+  let $form = $(e.target).closest('.roomForm')
+  clearForm($form);
 
   let room = {};
   room.name = name;
