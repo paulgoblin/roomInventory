@@ -33,7 +33,7 @@
 
 .itemTitle {
   display: inline-block;
-  width:calc(100% - 150px);
+  width:calc(100% - 250px);
 }
 .dropdown {
   width: 100px;
@@ -47,4 +47,10 @@
 .item > li {
   font-size: 14px;
   font-weight: normal;
+}
+
+.delete {
+  width: 100px;
+  margin-right: 1em;
+  display: inline-block;
 }

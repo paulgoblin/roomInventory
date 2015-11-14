@@ -19,6 +19,7 @@ html(lang="en")
                 each item in room.items
                   .item(data-mongoid= item._id.toString())
                     h4.itemTitle= item.name
+                    button.btn.delete Delete item
                     .dropdown
                       button.btn.btn-default.dropdown-toggle(type='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='true')
                         | Put it in a room
@@ -52,12 +53,13 @@ html(lang="en")
                   button.btn.editRoom Save Edit
 
       .jumbotron
-        h2 Loose Items
+        h2 All Items
           .room#looseItems(data-mongoid= 0)
             if items[0]
               each item in items
                 .item(data-mongoid= item._id.toString())
                   h4.itemTitle= item.name
+                  button.btn.delete Delete item
                   .dropdown
                     button.btn.btn-default.dropdown-toggle(type='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='true')
                       | Put it in a room
@@ -108,6 +110,7 @@ html(lang="en")
 
     .item#sample
       h4.itemTitle= test
+      button.btn.delete Delete item
       .dropdown
         button.btn.btn-default.dropdown-toggle(type='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='true')
           | Put it in a room

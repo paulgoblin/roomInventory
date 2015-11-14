@@ -30,7 +30,8 @@ router.put('/:id', function(req,res){
 });
 
 router.delete('/:id', function(req,res){
-  Item.remove(req.params.id, function(err) {
+  console.log('id: ', req.params.id)
+  Item.remove({ _id: req.params.id }, function(err) {
     res.status(err ? 400 : 200).send(err ? "item remove failed" : "item deleted");
   });
 });

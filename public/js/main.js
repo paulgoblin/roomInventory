@@ -3,13 +3,37 @@
 $(document).ready(init);
 
 function init() {
-  $('.item')
   $('.addItem').click(addItem);
   $('.addRoom').click(addRoom);
   $('.jumbotron').on('click','.roomTitle',showEditRoom);
   $('.jumbotron').on('click','.itemTitle',showEditItem);
   $('.jumbotron').on('click','.editItem',updateItem);
   $('.jumbotron').on('click','.roomSelect',changeRooms);
+  $('.jumbotron').on('click','.delete',deleteItem)
+}
+
+function deleteItem(e){
+  console.log('Clicked!')
+  let $item = $(e.target).closest('.item');
+  let itemId = $item.data('mongoid');
+  console.log(itemId)
+
+  //update to db
+  $.ajax({
+    url:'/items/' + itemId,
+    method: "DELETE"
+  }).done(function(data){
+    $item.remove();
+  }).fail(function(err){
+    console.error(err);
+    swal({
+      title: "Error Deleting!",
+      text: "You should probably fill in the whole form",
+      type: "error",
+      confirmButtonText: "Ok"
+    });
+  });
+
 }
 
 function changeRooms(e){
@@ -34,6 +58,8 @@ function changeRooms(e){
     });
   });
   //draw item in new room
+
+
   if (curRoomId!=0){
     // take item out of room
 
@@ -53,11 +79,7 @@ function changeRooms(e){
         confirmButtonText: "Ok"
       });
     });
-
-
   }
-
-
 }
 
 function clearForm($form){
@@ -70,7 +92,7 @@ function clearForm($form){
 function showEditItem(e){
   let $form = $(e.target).siblings('.form-inline');
   clearForm($form);
-  $form.fadeToggle()
+  $form.slideToggle()
 }
 
 function updateItem(e){
@@ -85,7 +107,7 @@ function updateItem(e){
     method: "PUT",
     data: item
   }).done(function(data){
-    $form.fadeToggle();
+    $form.slideToggle();
     console.log(data)
     //drawitem
   }).fail(function(err){
@@ -103,7 +125,7 @@ function updateItem(e){
 function showEditRoom(e){
   let roomId = $(e.target).closest('.room').data('mongoid')
   console.log("room id: ", roomId)
-  $(e.target).siblings('.form-inline').fadeToggle();
+  $(e.target).siblings('.form-inline').slideToggle();
   populateForm();
 
 }
@@ -171,8 +193,8 @@ function addItem(e){
     let $item = $('#sample').clone().removeAttr('id');
     $item.data('mongoid',data._id);
     $item.find('.itemTitle').text(data.name);
-    $item.find('.descrip').text(data.description);
-    $item.find('.value').text(data.value);
+    $item.find('.descrip').text("description: " + data.description);
+    $item.find('.value').text("value: $" + data.value);
     $('#looseItems').append($item);
 
 
