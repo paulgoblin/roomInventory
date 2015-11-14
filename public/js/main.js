@@ -8,8 +8,6 @@ function init() {
   $('.jumbotron').on('click','.roomTitle',showEditRoom);
   $('.jumbotron').on('click','.itemTitle',showEditItem);
   $('.jumbotron').on('click','.editItem',updateItem);
-  // $('.jumbotron').on('click','.editRoom',editItem);
-
 }
 
 function clearForm($form){

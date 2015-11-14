@@ -20,18 +20,14 @@ html(lang="en")
                   .item(data-mongoid= item._id.toString())
                     h4.itemTitle= item.name
                     .dropdown
-                      button#dropdownMenu1.btn.btn-default.dropdown-toggle(type='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='true')
-                        | Put in room:
+                      button.btn.btn-default.dropdown-toggle(type='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='true')
+                        | Put it in a room
                         span.caret
                       ul.dropdown-menu(aria-labelledby='dropdownMenu1')
-                        li
-                          a(href='#') Action
-                        li
-                          a(href='#') Another action
-                        li
-                          a(href='#') Something else here
-                        li
-                          a(href='#') Separated link
+                        if rooms[0]
+                          each room in rooms
+                            li
+                              a(href='#!' data-mongoid= room._id.toString())= room.name
                     li.list-item= "description: " + item.description
                     li.list-item= "price: $" + item.value
                     .form-inline.itemForm
@@ -69,7 +65,7 @@ html(lang="en")
                     if rooms[0]
                       each room in rooms
                         li
-                          a(href='#' data-mongoid= room._id.toString())= room.name
+                          a(href='#!' data-mongoid= room._id.toString())= room.name
                 li.list-item= "description: " + item.description
                 li.list-item= "price: $" + item.value
                 .form-inline.itemForm
