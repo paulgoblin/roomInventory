@@ -1,0 +1,59 @@
+doctype html
+html(lang="en")
+  head
+    title= title
+    link(href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet")
+    link(href="css/style.css" rel="stylesheet")
+  body
+    .container
+      h1= title
+      br
+      .jumbotron.rooms
+        h2 Rooms
+        if rooms[0]
+          each room in rooms
+            .room(data-mongoid= room._id.toString())
+              h3= room.name
+              if room.items[0]
+                each item in room.items
+                  .item(data-mongoid= item._id.toString())
+                    h4= item.name
+                    li.list-item= "description: " + item.description
+                    li.list-item= "price: $" + item.value
+      .jumbotron
+        h2 Loose Items
+        .looseItems
+          if items[0]
+            each item in items
+              .item(data-mongoid= item._id.toString())
+                h4= item.name
+                li.list-item= "description: " + item.description
+                li.list-item= "price: $" + item.value
+
+      .jumbotron
+        .form-inline.itemForm
+          h4 New Item
+          .form-group
+            label(for=itemName type="text") Name
+            input.itemName
+          .form-group
+            label(for=itemValue type="number") Value
+            input.itemValue
+          .form-group
+            label(for=itemDescrip type="text") Description
+            input.itemDescrip
+          .form-group
+            button.btn.addItem Add Item
+
+        .form-inline.roomForm
+          h4 New Room
+          .form-group
+            label(for=roomName type="text") Name
+            input.roomName
+          .form-group
+            button.btn.addRoom Add Room
+
+    script(src='bower_components/jquery/dist/jquery.min.js')
+    script(src='bower_components/bootstrap/dist/js/bootstrap.min.js')
+    script(src="bower_components/sweetalert/dist/sweetalert.min.js")
+    script(src='js/main.js')
