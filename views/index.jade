@@ -19,6 +19,19 @@ html(lang="en")
                 each item in room.items
                   .item(data-mongoid= item._id.toString())
                     h4.itemTitle= item.name
+                    .dropdown
+                      button#dropdownMenu1.btn.btn-default.dropdown-toggle(type='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='true')
+                        | Dropdown
+                        span.caret
+                      ul.dropdown-menu(aria-labelledby='dropdownMenu1')
+                        li
+                          a(href='#') Action
+                        li
+                          a(href='#') Another action
+                        li
+                          a(href='#') Something else here
+                        li
+                          a(href='#') Separated link
                     li.list-item= "description: " + item.description
                     li.list-item= "price: $" + item.value
                     .form-inline.itemForm
@@ -48,6 +61,19 @@ html(lang="en")
             each item in items
               .item(data-mongoid= item._id.toString())
                 h4.itemTitle= item.name
+                .dropdown
+                  button#dropdownMenu1.btn.btn-default.dropdown-toggle(type='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='true')
+                    | Dropdown
+                    span.caret
+                  ul.dropdown-menu(aria-labelledby='dropdownMenu1')
+                    li
+                      a(href='#') Action
+                    li
+                      a(href='#') Another action
+                    li
+                      a(href='#') Something else here
+                    li
+                      a(href='#') Separated link
                 li.list-item= "description: " + item.description
                 li.list-item= "price: $" + item.value
                 .form-inline.itemForm

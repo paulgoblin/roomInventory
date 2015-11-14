@@ -10,7 +10,6 @@ function init() {
   $('.jumbotron').on('click','.editItem',updateItem);
   // $('.jumbotron').on('click','.editRoom',editItem);
 
-
 }
 
 function clearForm($form){
@@ -31,8 +30,6 @@ function updateItem(e){
   let $form = $(e.target).closest('.itemForm');
   let item = makeItem($form);
   if (!item) return;
-  console.log("item to send: ", item);
-
 
   //update to db
   $.ajax({
