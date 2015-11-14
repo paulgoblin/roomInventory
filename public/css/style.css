@@ -18,6 +18,10 @@
   padding-top:1em;
 }
 
+.room .form-inline {
+  display: none;
+}
+
 .form-inline {
   padding: 1em 0;
 }

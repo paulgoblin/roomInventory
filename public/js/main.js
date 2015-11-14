@@ -18,6 +18,7 @@ function editItem(e){
 function editRoom(e){
   let roomId = $(e.target).closest('.room').data('mongoid')
   console.log("room id: ", roomId)
+  
 }
 
 function addRoom() {

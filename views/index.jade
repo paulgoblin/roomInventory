@@ -21,6 +21,26 @@ html(lang="en")
                     h4.itemTitle= item.name
                     li.list-item= "description: " + item.description
                     li.list-item= "price: $" + item.value
+                    .form-inline.itemForm
+                      h4 Edit Item
+                      .form-group
+                        label(for=itemName type="text") Name
+                        input.itemName
+                      .form-group
+                        label(for=itemValue type="number") Value
+                        input.itemValue
+                      .form-group
+                        label(for=itemDescrip type="text") Description
+                        input.itemDescrip
+                      .form-group
+                        button.btn.editItem  Save Edit
+              .form-inline.roomForm
+                h4 Edit Room
+                .form-group
+                  label(for=roomName type="text") Name
+                  input.roomName
+                .form-group
+                  button.btn.editRoom Save Edit
       .jumbotron
         h2 Loose Items
         .room
@@ -30,6 +50,19 @@ html(lang="en")
                 h4.itemTitle= item.name
                 li.list-item= "description: " + item.description
                 li.list-item= "price: $" + item.value
+                .form-inline.itemForm
+                  h4 Edit
+                  .form-group
+                    label(for=itemName type="text") Name
+                    input.itemName
+                  .form-group
+                    label(for=itemValue type="number") Value
+                    input.itemValue
+                  .form-group
+                    label(for=itemDescrip type="text") Description
+                    input.itemDescrip
+                  .form-group
+                    button.btn.editItem  Save Edit
 
       .jumbotron
         .form-inline.itemForm
