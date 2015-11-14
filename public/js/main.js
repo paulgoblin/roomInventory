@@ -19,7 +19,7 @@ function deleteItem(e){
   console.log(itemId)
 
   let $copies = $("[data-mongoid='" + itemId + "']");
-  if ($copies) $copies.remove();
+  if ($copies) $copies.remove();  
 
   //update to db
   $.ajax({
@@ -200,6 +200,7 @@ function makeItem($form){
 function addItem(e){
   let $form = $(e.target).closest('.itemForm');
   let item = makeItem($form);
+  clearForm($form)
   if (!item) return;
 
   //post to db
