@@ -18,6 +18,9 @@ function deleteItem(e){
   let itemId = $item.data('mongoid');
   console.log(itemId)
 
+  let $copies = $("[data-mongoid='" + itemId + "']");
+  if ($copies) $copies.remove();
+
   //update to db
   $.ajax({
     url:'/items/' + itemId,
