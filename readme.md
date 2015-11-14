@@ -1,3 +1,7 @@
-# Express Example
+# roomInventory
 
-First, cd into the project directory, and do `npm run setup` to install the dependencies listed in the package.json and bower.json.  Then you can start the server in Node.
+https://polar-hamlet-1888.herokuapp.com/#!
+
+you can edit items by clicking the item name!! try it!
+
+
