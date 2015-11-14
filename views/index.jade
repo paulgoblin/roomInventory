@@ -29,8 +29,8 @@ html(lang="en")
                           each room in rooms
                             li.roomSelect
                               a(href='#!' data-mongoid= room._id.toString())= room.name
-                    li.list-item= "description: " + item.description
-                    li.list-item= "value: $" + item.value
+                    li.list-item.descrip= "description: " + item.description
+                    li.list-item.value= "value: $" + item.value
                     .form-inline.itemForm
                       h4 Edit Item
                       .form-group
@@ -69,8 +69,8 @@ html(lang="en")
                         each room in rooms
                           li.roomSelect
                             a(href='#!' data-mongoid= room._id.toString())= room.name
-                  li.list-item= "description: " + item.description
-                  li.list-item= "value: $" + item.value
+                  li.list-item.descrip= "description: " + item.description
+                  li.list-item.value= "value: $" + item.value
                   .form-inline.itemForm
                     h4 Edit Item
                     .form-group

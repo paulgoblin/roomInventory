@@ -42,12 +42,16 @@ function changeRooms(e){
   let curRoomId = $(e.target).closest(".room").data("mongoid");
   let newRoomId = $(e.target).data("mongoid");
 
+  $("[data-mongoid='" + newRoomId + "']").append($item);
+  $item.remove();
+
   // add Item to room 
   $.ajax({
     url:`/rooms/${newRoomId}/addItem/${itemId}`,
     method: "PUT"
   }).done(function(data){
     console.log(data)
+
   }).fail(function(err){
     console.error(err);
     swal({
@@ -57,10 +61,9 @@ function changeRooms(e){
       confirmButtonText: "Ok"
     });
   });
-  //draw item in new room
 
 
-  if (curRoomId!=0){
+  if (curRoomId!=0 || curRoomId == newRoomId){
     // take item out of room
 
     $.ajax({
@@ -109,7 +112,16 @@ function updateItem(e){
   }).done(function(data){
     $form.slideToggle();
     console.log(data)
-    //drawitem
+    let items = $("[data-mongoid='" + itemId + "']")
+
+    for(var i = 0; i < items.length ; i ++ ){      
+      $(items[i]).data('mongoid',itemId);
+      $(items[i]).find('.itemTitle').text(item.name);
+      $(items[i]).find('.descrip').text("description: " + item.description);
+      $(items[i]).find('.value').text("value: $" + item.value);
+    }
+
+
   }).fail(function(err){
     console.error(err);
     swal({
@@ -147,6 +159,10 @@ function addRoom(e) {
   $.post('/rooms', room)
   .done(function(data){
     console.log(data)
+    let $room = $('<div>').addClass('room').data('mongoid',data._id);
+    let $title = $('<h3>').addClass('roomTitle').text(data.name)
+    $room.append($title)
+    $('.rooms').append($room)
     
   })
   .fail(function(err){
@@ -186,9 +202,6 @@ function addItem(e){
   //post to db
   $.post('/items', item)
   .done(function(data){
-    // let itemId = data._id;
-    // let looseItemsId = '5646cc3b3c7c1611e5ae1452';
-    //add item to 'loose items' room
 
     let $item = $('#sample').clone().removeAttr('id');
     $item.data('mongoid',data._id);
@@ -196,23 +209,6 @@ function addItem(e){
     $item.find('.descrip').text("description: " + data.description);
     $item.find('.value').text("value: $" + data.value);
     $('#looseItems').append($item);
-
-
-    // $.ajax({
-    //   url:`/rooms/${looseItemsId}/addItem/${itemId}`,
-    //   method: "PUT"
-    // }).done(function(data){
-    //   console.log(data)
-
-    // }).fail(function(err){
-    //   console.error(err);
-    //   swal({
-    //     title: "Error Changing Rooms!",
-    //     text: "Refresh and try again",
-    //     type: "error",
-    //     confirmButtonText: "Ok"
-    //   });
-    // });
 
   })
   .fail(function(err){

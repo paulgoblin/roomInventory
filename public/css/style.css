@@ -40,13 +40,17 @@
   display: inline-block;
 }
 
-#sample{
+#sample, #sampleRoom{
   display: none;
 }
 
 .item > li {
   font-size: 14px;
   font-weight: normal;
+}
+
+.item .itemForm{
+  font-size: 14px;
 }
 
 .delete {
