@@ -11,7 +11,7 @@ router.get('/', function(req, res) {
     if (err) return res.send('you\'re fucked')
     Room.find({}).populate('items').exec(function (err, rooms) {
       if (err) return res.send('you\'re fucked')
-      res.render("index",{title: "Clue starter pack", items: items, rooms: rooms});
+      res.render("index",{title: "Items in rooms", items: items, rooms: rooms});
     }); 
   });
 });

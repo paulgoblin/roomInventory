@@ -5,12 +5,9 @@ var router = express.Router();
 
 var Room = require('../models/room');
 var Item = require('../models/item');
-// console.log("ROOMS",Room.find())
-
-
 
 router.get('/', function( req, res ) {
-  Room.find({}).populate('items turnips').exec(function(err,rooms){
+  Room.find({}).populate('items').exec(function(err,rooms){
     res.status(err ? 400 : 200).send(err ? "room get failed" : rooms);
   });
 
@@ -38,9 +35,30 @@ router.put('/:roomId/addItem/:itemId', function(req, res) {
       if (err) return res.status(400).send(err.message);
 
       if (room.items.indexOf(item._id) !== -1){
-        res.status(400).send('item already in room');
+        res.status(200).send('item already in room');
       } else {
         room.items.push(item._id);
+        room.save(function(err){
+          res.status(err ? 400 : 200).send(err ? 'Item add failed' : 'Item added');
+        });
+      }
+      
+    })
+  })
+})
+
+router.delete('/:roomId/removeItem/:itemId', function(req, res) {
+  console.log('params', req.params.roomId, req.params.roomId)
+  Room.findById(req.params.roomId, function(err, room){
+    if (err) return res.status(400).send(err.message);
+    Item.findById(req.params.itemId, function(err, item){
+      if (err) return res.status(400).send(err.message);
+      let itemIndex = room.items.indexOf(item._id);
+      if (itemIndex === -1){
+        res.status(200).send('item not in room');
+      } else {
+        room.items.splice(itemIndex,1);
+        console.log (room.items)
         room.save(function(err){
           res.status(err ? 400 : 200).send(err ? 'Item add failed' : 'Item added');
         });

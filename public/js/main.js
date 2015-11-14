@@ -3,6 +3,7 @@
 $(document).ready(init);
 
 function init() {
+  $('.item')
   $('.addItem').click(addItem);
   $('.addRoom').click(addRoom);
   $('.jumbotron').on('click','.roomTitle',showEditRoom);
@@ -12,12 +13,10 @@ function init() {
 }
 
 function changeRooms(e){
-  console.log(e.target);
-  let curRoomId = $(e.target).closest(".room").data("mongoid")
-  let newRoomId = $(e.target).data("mongoid")
-  let itemId = $(e.target).closest(".item").data("mongoid")
-  console.log(curRoomId, newRoomId, itemId)
-  console.log(`/${newRoomId}/addItem/${itemId}`)
+  let $item = $(e.target).closest(".item");
+  let itemId = $item.data("mongoid");
+  let curRoomId = $(e.target).closest(".room").data("mongoid");
+  let newRoomId = $(e.target).data("mongoid");
 
   // add Item to room 
   $.ajax({
@@ -25,7 +24,6 @@ function changeRooms(e){
     method: "PUT"
   }).done(function(data){
     console.log(data)
-    //drawitem 
   }).fail(function(err){
     console.error(err);
     swal({
@@ -35,6 +33,29 @@ function changeRooms(e){
       confirmButtonText: "Ok"
     });
   });
+  //draw item in new room
+  if (curRoomId!=0){
+    // take item out of room
+
+    $.ajax({
+      url:`/rooms/${curRoomId}/removeItem/${itemId}`,
+      method: "delete"
+    }).done(function(data){
+      //remove from DOM
+      $item.remove();
+
+    }).fail(function(err){
+      console.error(err);
+      swal({
+        title: "Error Changing Rooms!",
+        text: "Refresh and try again",
+        type: "error",
+        confirmButtonText: "Ok"
+      });
+    });
+
+
+  }
 
 
 }
@@ -88,7 +109,8 @@ function showEditRoom(e){
 }
 
 function addRoom(e) {
-  let name = $('.roomName').val();
+  let name = $(e.target).closest('.roomForm').find('.roomName').val();
+  console.log(name)
   if (!name.match(/\w/)) {
     console.log("give it a name!")
     return;
@@ -142,8 +164,34 @@ function addItem(e){
   //post to db
   $.post('/items', item)
   .done(function(data){
-    console.log(data)
-    //drawitem
+    // let itemId = data._id;
+    // let looseItemsId = '5646cc3b3c7c1611e5ae1452';
+    //add item to 'loose items' room
+
+    let $item = $('#sample').clone().removeAttr('id');
+    $item.data('mongoid',data._id);
+    $item.find('.itemTitle').text(data.name);
+    $item.find('.descrip').text(data.description);
+    $item.find('.value').text(data.value);
+    $('#looseItems').append($item);
+
+
+    // $.ajax({
+    //   url:`/rooms/${looseItemsId}/addItem/${itemId}`,
+    //   method: "PUT"
+    // }).done(function(data){
+    //   console.log(data)
+
+    // }).fail(function(err){
+    //   console.error(err);
+    //   swal({
+    //     title: "Error Changing Rooms!",
+    //     text: "Refresh and try again",
+    //     type: "error",
+    //     confirmButtonText: "Ok"
+    //   });
+    // });
+
   })
   .fail(function(err){
     console.error(err);
@@ -156,6 +204,5 @@ function addItem(e){
   });
 
 }
-
 
 
