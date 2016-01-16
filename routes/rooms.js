@@ -15,7 +15,7 @@ router.get('/', function( req, res ) {
   //   res.status(err ? 400 : 200).send(err? err.message : rooms);
   // }).populate('items');
 
-  // Room.find({}, function(err,rooms){
+  // Room.find({}, function(err,roomrs){
   //   res.status(err ? 400 : 200).send(err? err.message : rooms);
   // }).sort(value: 1);
   
